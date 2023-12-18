@@ -2,42 +2,83 @@
 
 ## Partie 1 Infrastructure
 
-### 1: Linux/systeme
+### 1: Linux/systeme (17/01)
 
-### 2: Docker/ Docker compose
+Commandes linux basiques :
 
-### 3: K8S intro
+- cd
+- ls
+- cp/mv
+- chmod
 
-- deploiement Strapi
+Configuration ssh
 
-### 4: K8S debug
+Création de script automatisé (début de la CI/CD)
 
-### 5: CI/CD
+Exécution de script avec un moteur de CRON
 
-- Gitlab CI
+Utilisation de git (connexion en clé ssh)
 
-### 6: Scaling / Loadbalancing / Rolling Update
+### 2: Docker/ Docker compose (24/01)
+
+Lancer un container docker :
+
+- configurer son environment
+- docker login sur le repository / gestion des secrets
+
+Création de fichiers docker-compose
+
+### 3: K8S intro (31/01)
+
+- connexion au cluster K8S avec kubectl
+- lancement d'un pod / deploiement / service
+- deploiement de Strapi
+- création de fichiers .yml K8S
+
+### 4: K8S debug (07/02)
+
+Troubleshooting K8S
+
+- récupérations des logs des pods
+- installation de monitoring sur l'application déployé
+
+### 5: CI/CD (14/02)
+
+Création d'une pipeline de deploiement automatisée. (gitlabCI)
+
+### 6: Scaling / Loadbalancing / Rolling Update (06/03)
+
+Création d'une infrastructure type "prod" :
+
+- auto-scaling
+- Rolling update pour les nouvelles versions
 
 ## Evalutation Partie 1
 
 ## Partie 2 Data
 
-### 7: Import de données dans Strapi
+### 7: Import de données dans Strapi (13/03)
 
-### 8: Export automatique
+Import en batch de données à partir d'un fichiers CSV via un script bactch (event sourcing/pooling)
 
-### 9: Data pipeline
+### 8: Export automatique (20/03)
+
+Export de données automatisé récurent avec un CRON dans le filesystem.
+
+### 9: Data pipeline (27/03)
+
+Ingestion récurente de données dans un module de "calcul" et sauvegarde des résultats.
 
 ## Evalutation Partie 2
 
 ## Partie 3 IoT
 
-### 10: IoT sur le terrain
+### 10: IoT sur le terrain (03/04)
 
-Capteur NFC, QR codes.
+Utilisation de capteurs NFC et QR codes pour créer de l'information. (autres capteurs si on trouve)
 
-### 11: Connecter l'IoT
+### 11: Connecter l'IoT (24/04) ??
 
-SSL, MQTT
+Connexion des capteurs via MQTT à la pipeline de données (sécurisé par SSL)
 
 ## Evalutation Partie 3
