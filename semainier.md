@@ -63,11 +63,11 @@ Import en batch de données à partir d'un fichiers CSV via un script bactch (ev
 
 ### 8: Export automatique (20/03)
 
-Export de données automatisé récurent avec un CRON dans le filesystem.
+Export de données automatisé récurrent avec un CRON dans le filesystem.
 
 ### 9: Data pipeline (27/03)
 
-Ingestion récurente de données dans un module de "calcul" et sauvegarde des résultats.
+Ingestion récurrente de données dans un module de "calcul" et sauvegarde des résultats.
 
 ## Evalutation Partie 2
 
@@ -77,7 +77,7 @@ Ingestion récurente de données dans un module de "calcul" et sauvegarde des r�
 
 Utilisation de capteurs NFC et QR codes pour créer de l'information. (autres capteurs si on trouve)
 
-### 11: Connecter l'IoT (24/04) ??
+### 11: Connecter l'IoT (24/04)
 
 Connexion des capteurs via MQTT à la pipeline de données (sécurisé par SSL)
 
