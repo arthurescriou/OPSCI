@@ -21,7 +21,8 @@ Utilisation de git (connexion en clé ssh)
 
 #### Partie 1 machine local
 
-ex 1 :
+ex 1
+
 Commandes linux basique :
 
 - ls
@@ -31,33 +32,39 @@ Commandes linux basique :
 - df
 - du
 - find/grep
-- ps
+- ps/top
 
 Objectif savoir se situer dans une machine
 un fichier/report config
 
-ex 2 :
+ex 2
+
 Script => automatiser ex 1
 
-ex 3:
+ex 3
+
 Git => pousser leur script
 Gitlab navigateur
 
 #### Partie 2
 
 ex 4
+
 ifconfig tshark nmap
 objectif => la machine distante
 
 ex5
+
 ssh sur la machine
 objectif clé ssh et supprimer le password
 
 ex6
+
 gitlab ssh
 objectif => lancer leur script de l'ex 2 sur la machine distante
 
 ex7
+
 CRON
 
 ### 2: Docker/ Docker compose (24/01)
