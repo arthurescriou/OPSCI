@@ -33,6 +33,7 @@ Commandes linux basique :
 - du
 - find/grep
 - ps/top
+- cat /dev cpuinfo
 
 Objectif savoir se situer dans une machine
 un fichier/report config
