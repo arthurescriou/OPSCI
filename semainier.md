@@ -109,7 +109,7 @@ Troubleshooting K8S
 
 Création d'une pipeline de deploiement automatisée. (gitlabCI)
 
-Partie 1
+#### Partie 1
 
 Connexion gitlab/machine distante
 
@@ -117,13 +117,13 @@ gitlab runner
 
 lancer exo 2 TME 1
 
-Partie 2
+#### Partie 2
 
 Lancer le projet TME 2-3-4
 
 Mise à jour du code et dépoimenent infrastructure
 
-### 6: Scaling / Loadbalancing / Rolling Update (06/03)
+### 6: Scaling / Loadbalancing / Rolling Update (28/02)
 
 Création d'une infrastructure type "prod" :
 
@@ -134,7 +134,7 @@ Création d'une infrastructure type "prod" :
 
 ## Partie 2 Data
 
-### 7: Import de données dans Strapi (13/03)
+### 7: Import de données dans Strapi (06/03)
 
 Import en batch de données à partir d'un fichiers CSV via un script bactch (event sourcing/pooling)
 
