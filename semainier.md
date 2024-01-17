@@ -19,69 +19,6 @@ Exécution de script avec un moteur de CRON
 
 Utilisation de git (connexion en clé ssh)
 
-#### Partie 1 machine local
-
-Prenez des notes pour la suite => faites vous une cheatsheet
-
-ex 1
-
-Commandes linux basique :
-
-- ls/chown/chmod
-- cd
-- whoami
-- pwd
-- df/quota
-- du/ncdu
-- find/grep
-- ps/top (background exec ctrl z, &)
-- kill
-- cat /dev cpuinfo
-- export
-- nohup
-
-Objectif savoir se situer dans une machine
-un fichier/report config
-
-ex 2
-
-Script => automatiser ex 1
-
-sorties standards
-variables systèmes
-
-ex 3
-
-Git => pousser leur script
-
-Gitlab navigateur
-
-#### Partie 2
-
-ex 4
-
-ifconfig tshark nmap
-
-objectif => la machine distante
-
-ex5
-
-ssh sur la machine
-
-objectif clé ssh et supprimer le password
-
-- vi
-
-ex6
-
-gitlab ssh
-
-objectif => lancer leur script de l'ex 2 sur la machine distante
-
-ex7
-
-CRON
-
 ### 2: Docker/ Docker compose (24/01)
 
 Lancer un container docker :
@@ -108,20 +45,6 @@ Troubleshooting K8S
 ### 5: CI/CD (14/02)
 
 Création d'une pipeline de deploiement automatisée. (gitlabCI)
-
-#### Partie 1
-
-Connexion gitlab/machine distante
-
-gitlab runner
-
-lancer exo 2 TME 1
-
-#### Partie 2
-
-Lancer le projet TME 2-3-4
-
-Mise à jour du code et dépoimenent infrastructure
 
 ### 6: Scaling / Loadbalancing / Rolling Update (28/02)
 
