@@ -34,7 +34,7 @@ Commandes linux basique :
 - df/quota
 - du/ncdu
 - find/grep
-- ps/top (bacground exec ctrl z, &)
+- ps/top (background exec ctrl z, &)
 - kill
 - cat /dev cpuinfo
 - export
