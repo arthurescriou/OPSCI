@@ -122,7 +122,7 @@ _Vous pouvez également créer un projet sur un fournisseur distant (gitlab, git
 
 ### Exercice 7 (Devoir à la maison optionnel)
 
-Une des caractéristiques majeure du controle de version est l'exposition et le partage de son code.
+Une des caractéristiques majeures du controle de version est l'exposition et le partage de son code.
 
 Se renseigner sur _Clean Code_ et _Craftmanship_, selectionner le top 10 des recommandations de votre choix.
 Pour chacune des recommandations expliquer (entre 1 et 3 lignes max) de quoi il s'agit.
