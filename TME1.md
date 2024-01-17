@@ -68,7 +68,7 @@ Pour arréter ce processus avant sa fin `kill -9 $PID`.
 
 Pour continuer avec top afficher les 10 processus utilisant le plus de mémoire et de CPU.
 
-## Partie 2 Rapport du système local
+## Partie 2 : Rapport du système local
 
 Dans cette partie l'objectif et de reprendre les commandes de la partie d'avant pour les automatiser dans un script.
 
@@ -113,9 +113,18 @@ Créer un dépôt dans votre dossier et ajouter votre code au dépôt.
 
 _Vous pouvez également créer un projet sur un fournisseur distant (gitlab, github) si vous voulez travailler sur une autre machine._
 
-## Partie 3 Exploration du LAN/WAN
+### Exercice 7 (Devoir à la maison optionnel)
 
-### Exercice 7
+Une des caractéristiques majeures est l'exposition et le partage de son code.
+
+Se renseigner sur _clean code_ et _craftmanship_, selectionner le top 10 des recommandations de votre choix.
+Pour chacune des recommandation expliquer (entre 1 et 3 lignes max) de quoi il s'agit.
+
+## Partie 3 : Pour aller plus loin
+
+### Exercice 8
+
+#### Exploration du LAN et WAN
 
 Déterminer son adresse IP, les ports ouverts, ...
 
@@ -127,7 +136,9 @@ _NB: Il existe également les commandes `tshark`, `wireshark` et `ifconfig`_
 
 Enrichir les fichiers du répertoir `system-report.sh` avec ces nouvelles informations.
 
-### Exercice 8
+### Exercice 9
+
+#### Planification récurente
 
 Utiliser la commande crontab pour rendre récurent la commande de l'Exercice 5.
 
