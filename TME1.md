@@ -1,4 +1,4 @@
-# TME 1 Opsci
+# TME 1 OpsCI
 
 L'objectif de ce TME est de se familiariser avec l'environment système linux.
 Les commandes utilisé lors de ce TME seront utile pour la suite de l'UE.
@@ -109,6 +109,26 @@ Pour sauvegarder votre travail vous devez utiliser un gestionnaire de version : 
 
 Créer un dépôt dans votre dossier et ajouter votre code au dépôt.
 
-**ATTENTION : les fichiers \*.info ne doivent pas figurer dans le dépôt (Les informations contenu dedans sont trop sensibles: créez un fichier _.gitignore_ en conséquence)**
+**🔴 ATTENTION 🔴 : les fichiers \*.info ne doivent pas figurer dans le dépôt (Les informations contenu dedans sont trop sensibles: créez un fichier _.gitignore_ en conséquence)**
 
 _Vous pouvez également créer un projet sur un fournisseur distant (gitlab, github) si vous voulez travailler sur une autre machine._
+
+## Partie 3 Exploration du LAN/WAN
+
+### Exercice 7
+
+Déterminer son adresse IP, les ports ouverts, ...
+
+`ip addr`
+
+`nmap localhost`
+
+_NB: Il existe également les commandes `tshark`, `wireshark` et `ifconfig`_
+
+Enrichir les fichiers du répertoir `system-report.sh` avec ces nouvelles informations.
+
+### Exercice 8
+
+Utiliser la commande crontab pour rendre récurent la commande de l'Exercice 5.
+
+_Pensez à vérifier votre expression cron avant de la lancer (sur un simulateur de crontab en ligne par exemple)_
