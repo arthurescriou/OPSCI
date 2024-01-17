@@ -49,7 +49,7 @@ Vous êtes maintenant à la racine de la session (votre `$HOME`, que vous pouvez
 Ressources utilisées :
 
 - taille du répertoire courant (`du -hs`, attention ça peut prendre du temps)
-- taille des fils du répertoire courant (`du -h --max-detph=1`)
+- taille des fils du répertoire courant (`du -h --max-depth=1`)
 - quota utilisé ( `quota`)
 - nombre de fichiers dans la session (bonus: nombre par type d'extensions : utiliser `find ~/workspace -name *\.java| wc -l` par exemple)
 
