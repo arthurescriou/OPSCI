@@ -1,0 +1,49 @@
+@font-face {
+	font-family: "Customized Font";
+	src: url(files/fonts/GelPen.ttf);
+}
+
+html,body,p,ul,li,td {
+	font-family : "Customized Font", comic sans ms, verdana, arial, helvetica, geneva, sans-serif, "MS sans-serif" ; 
+	background-color : #e0e0e0;
+	color : #000000;
+	font-size : 12px;
+	font-weight : normal; 
+	margin : 12px 24px 12px 24px;
+}
+
+h1 {
+	font-size : 18px;
+	color : #888888;
+	margin : 18px 0px 18px 0px;
+}
+
+h2 {
+	font-size : 14px; 
+	font-weight : bolder;
+	margin : 14px 0px 14px 0px;
+}
+
+a:link {
+	text-decoration : none;
+	color : #008888;
+	font-weight : bold;
+}
+
+a:visited {
+	text-decoration : none;
+	color : #880000;
+	font-weight : bold;
+}
+
+a:hover {
+	text-decoration : underline;
+	color : #888888;
+	font-weight : bold;
+}
+
+a:active {
+	text-decoration : underline;
+	color : #888888;
+	font-weight : bold;
+}
