@@ -1,12 +1,12 @@
 # TME 2 OpsCI
 
-L'objectif de ce TME est d'apprendre à utiliser les fonctionnalité basique de docker et de se familiariser avec l'utilisation de machine distante.
+L'objectif de ce TME est d'apprendre à utiliser les fonctionnalités basiques de docker et de se familiariser avec l'utilisation de machine distante.
 
 ## Partie 1 : Se connecter à une machine distante
 
 ### Exercice 1
 
-Pour commencer on veut se connecter avec une machine distante en utilisant du ssh.
+Pour commencer on veut se connecter avec une machine distante en utilisant `ssh`.
 
 ```sh
 ssh root@${URL_SSH} -v
@@ -16,24 +16,56 @@ Une fois sur cette machine distante on veut lancer le script créé au TME préc
 
 Plusieurs solutions :
 
-- utiliser le protocole ftp pour transférer le fichier de votre machine vers la machine distante
+- utiliser le protocole `ftp` pour transférer le fichier de votre machine vers la machine distante
 
 ```sh
 scp /path/to/script/report.sh root@${URL_SSH}:/distant/path/to/script/your/name/report.sh
 ```
 
 - faire un `git pull` de votre dépôt git depuis la machine distante
-  (attention il faut avoir créer un dépôt sur un fournisseur git en ligne cf TME1 exercice 6)
+  (attention il faut avoir créé un dépôt sur un fournisseur git en ligne cf TME1 exercice 6)
 
-- copier coller le contenu du script avec un editeur de fichier en terminal
+- copier coller le contenu du script avec un éditeur de fichier en terminal (vi, vim, emacs, nano)
 
 ### Exercice 2
 
-Ajouter sa clé ssh pour s'authentifier sans mot de passe.
+Ajouter sa clé ssh pour s'authentifier sans mot de passe (`ssh-keygen`)
+
+### Exercice 3 (droits d'accès)
+
+La propriété des fichiers et des répertoires est modifiable par la commande `chown`, tandis que
+les droits d'accès aux fichiers et répertoires sont modifiables par la commande `chmod`.
+Ces droits sont représentés en machine par 9 (neuf) bits:
+
+- trois bits pour l'utilisateur propriétaire du fichier / répertoire (owner).
+
+- trois pour le groupe dont appartient l'utilisateur propriétaire (group).
+
+- les trois derniers bits pour n'importe quel utilisateur (public).
+
+L'usage commun regroupe chaque triplet en chiffre décimal. Voici quelques exemples:
+
+- 051 signifie que l'utilisateur propriétaire n'a aucun droit (ni en lecture, ni en écriture, ni en exécution); que le groupe a le droit de lecture et d'exécution (5 = 2^2+2^0) mais pas celui d'écriture; qu'un utilisateur publique peut uniquement exécuter le fichier / répertoire.
+
+- 421 signifie que l'utilisateur a le droit de lire; que le groupe a le droit d'écrire; qu'un utilisateur publique a le droit d'exécution.
+
+- les droits les plus courants pour un fichier sont: 644, 600, 640.
+
+- les droits les plus courants pour un répertoire sont: 711, 700, 710.
+
+Dans la suite de l'exercice, nous allons tenter de lire le fichier `report.sh` d'un autre étudiant dans les machines de la PPTI. Déterminer l'endroit où le `home` de votre voisin est monté dans le système de fichiers:
+
+```sh
+ls -l /users/Etu?/ | grep ${NUM_ETU_DU_VOISIN}
+```
+
+Déterminer les droits d'accès à ce `home`, si ceux-ci sont XX7, XX5, XX1, accéder au répertoire et chercher à lire le fichier `OPSCI/systeme-report/report.sh` ainsi que les fichiers `OPSCI/systeme-report/*.info`.
+
+Comment interdire ce type d'intrusion?
 
 ## Partie 2 : Docker
 
-### Exercice 3
+### Exercice 4
 
 On veut maintenant lancer un conteneur docker :
 
@@ -50,7 +82,7 @@ docker exec -it ${container_name} bash
 
 De la même manière que pour l'Exercice 1 lancez le script `report.sh` dans le conteneur.
 
-### Exercice 4
+### Exercice 5
 
 Il est également possible de se connecter au conteneur docker via SSH mais pour ça on doit configurer notre conteneur et son réseau.
 
@@ -107,7 +139,7 @@ ssh root@localhost
 
 Ajouter une clé ssh dans le conteneur pour se connecter dessus sans mot de passe.
 
-### Exercice 5
+### Exercice 6
 
 Maintenant qu'on connait quelques commandes docker il est temps de construire une image par nous même.
 
@@ -144,7 +176,7 @@ Grace au script `report.sh` on sait récupérer des informations sur le système
 Mais pour cette partie on est surtout interessé par la commande `hostname`.
 Lorsqu'on est dans un conteneur docker le hostname correspond à l'`ID` du conteneur.
 
-#### Exercice 6
+#### Exercice 7
 
 Nous voulons communiquer entre deux conteneur.
 
@@ -178,7 +210,7 @@ Essayez de se connecter au `container_name_1` à partir du `container_name_2` au
 
 Vérifiez bien le `hostname` à chaque étape.
 
-#### Exercice 7
+#### Exercice 8
 
 Une chose importante dans l'utilisation de `docker` et des systèmes en général sont les variables d'environment.
 
