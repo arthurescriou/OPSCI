@@ -80,7 +80,7 @@ Maintenant que le conteneur est lancé il est possible de se connecter dessus av
 docker exec -it ${container_name} bash
 ```
 
-De la même manière que pour l'Exercice 1 lancez le script `report.sh` dans le conteneur.
+De la même manière que pour Exercice 1 lancez le script `report.sh` dans le conteneur.
 
 ### Exercice 5
 
@@ -108,17 +108,16 @@ export image_name='ssh_container'
 docker build . -t ${image_name}
 ```
 
-Et on peut la lancer comme dans l'exercice 3
+Et on peut la lancer comme dans Exercice 3
 
 ```sh
 docker run -itd --name ${container_name} ${image_name}
 ```
 
-Un nouveau conteneur acceptant le `SSH` à été créé.
-
+Un nouveau conteneur acceptant le `SSH` a été créé.
 Cependant le réseau docker ne permet pas d'accéder au conteneur sur le port ssh : 22.
 
-Pour se connecter en `SSH` il faut changer la configuration de lancement du conteneur. On va donc commencé par l'arréter et le supprimer.
+Pour se connecter en `SSH` il faut changer la configuration de lancement du conteneur. On va donc commencer par l'arrêter et le supprimer.
 
 ```sh
 docker stop ${container_name}
@@ -142,13 +141,10 @@ Ajouter une clé ssh dans le conteneur pour se connecter dessus sans mot de pass
 ### Exercice 6
 
 Maintenant qu'on connait quelques commandes docker il est temps de construire une image par nous même.
-
 Pour cet exercice on veut créer un conteneur hébergeant un site statique.
 
 Vous pouvez récupérer un site html/css sur de dépôt de l'UE sur la `branche` `tme2-site` dans le dossier `site`.
-
 Vous devez maintenant créer un Dockerfile pour créer une image docker permettant de rendre ces fichiers disponible via http.
-
 Quelques exemples pour créer un serveur http simplement :
 
 - en python : `server='python3 -m http.server'` dans le bon dossier
@@ -161,36 +157,29 @@ COPY . /usr/share/nginx/html
 
 - en <a href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Node_server_without_framework">node.js</a>
 
-Ou tout autres exemples trouvés sur internet.
+- ou tout autre exemple similaire.
 
-Une fois le Dockerfile écrit faites un `docker build` comme dans l'exercice 4.
-
-Et lancez votre conteneur en configurant les ports correctement.
+Une fois le Dockerfile écrit exécuter `docker build` comme dans Exercice 4.
+Lancer le conteneur en configurant les ports correctement.
 
 ## Partie 3 : Le réseau en docker
 
-Dans cette partie on veut faire fonctionner plusieurs conteneur ensemble.
-
-Grace au script `report.sh` on sait récupérer des informations sur le système courant.
-
-Mais pour cette partie on est surtout interessé par la commande `hostname`.
+Dans cette partie on veut faire fonctionner plusieurs conteneurs ensemble.
+Grâce au script `report.sh` on sait récupérer des informations sur le système courant.
+Mais pour cette partie on est surtout intéressé par la commande `hostname`.
 Lorsqu'on est dans un conteneur docker le hostname correspond à l'`ID` du conteneur.
 
-#### Exercice 7
+### Exercice 7
 
-Nous voulons communiquer entre deux conteneur.
-
-Pour commencer nous allons lancer 2 conteneur "ssh" avec des noms différents.
-
+Nous voulons communiquer entre deux conteneurs.
+Pour commencer nous allons lancer 2 conteneurs "ssh" avec des noms différents.
 Se connecter aux deux et vérifier que le `hostname` correspond bien.
 
-Il n'est pas possible de d'ouvrir deux conteneur avec le même port sur la machine, car il est impossible pour deux executable d'écouter sur le même port sur une seule machine.
-
+Il n'est pas possible d'ouvrir deux conteneurs avec le même port sur la machine, car il est impossible pour deux exécutables d'écouter sur le même port sur une seule machine.
 Cependant on peut résoudre ce problème avec les `docker network`.
 
-Créer 2 conteneurs "ssh", n'ouvrir les port que pour un seul.
-
-Ajoutez ces deux conteneurs dans un network.
+Créer 2 conteneurs "ssh", n'ouvrir les ports que pour un seul.
+Ajouter ces deux conteneurs dans un réseau.
 
 ```sh
 docker network create --driver bridge ${network_name}
@@ -198,43 +187,39 @@ docker network connect ${network_name} ${container_name_1}
 docker network connect ${network_name} ${container_name_2}
 ```
 
-Maintenant accédez au premier conteneur et à partir du premier accédez au deuxième.
-
-Pour accéder au deuxième conteneur il faut utiliser son nom ou ID comme hostname dans la commande ssh.
+Accédons maintenant au premier conteneur et à partir du premier accéder au deuxième.
+Pour accéder au deuxième conteneur il faut utiliser son nom ou ID comme hostname dans la commande `ssh`.
 
 ```sh
 ssh root@${container_name_2}
 ```
 
-Essayez de se connecter au `container_name_1` à partir du `container_name_2` aussi.
+Essayer de se connecter au `container_name_1` à partir du `container_name_2` aussi.
+Vérifier bien le `hostname` à chaque étape.
 
-Vérifiez bien le `hostname` à chaque étape.
+### Exercice 8
 
-#### Exercice 8
+Une chose importante dans l'utilisation de `docker` et des systèmes en général sont les variables d'environnement:
 
-Une chose importante dans l'utilisation de `docker` et des systèmes en général sont les variables d'environment.
+- la commande `printenv` affiche tout l'environnement courant.
 
-La commande `printenv` affiche tout l'environment courant.
+- la commande `export COUCOU="COUCOU"` change la variable d'environnement `COUCOU` mais seulement pour la session en cours.
 
-La commande `export COUCOU="COUCOU"` change la variable d'environment `COUCOU` mais seulement pour la session en cours.
+Ajouter la commande `printenv` dans le script `report.sh`.
 
-Vous pouvez ajouter la commande `printenv` dans le script `report.sh`.
-
-Certains executable utilise la configuration donnée par les variables d'environments comme le `PORT` d'un serveur par exemple.
-
-On peut également récupérer les variables d'environment avec `echo $COUCOU`.
-
-De plus il est possible d'injecter un environment au lancement d'un conteneur docker.
+Certains exécutables utilisent la configuration donnée par les variables d'environnements comme le `PORT` d'un serveur par exemple.
+On peut également récupérer les variables d'environnement avec `echo $COUCOU`.
+De plus il est possible d'injecter un environnement au lancement d'un conteneur docker:
 
 ```sh
 docker run -itd -e COUCOU=COUCOU --name ${container_name} ${image_name}
 ```
 
-Ou directement d'un fichier
+Ou directement d'un fichier:
 
 ```sh
 echo "COUCOU=COUCOU">env
 docker run -itd --env-file ./env --name ${container_name} ${image_name}
 ```
 
-Vérifiez que dans les deux cas l'environment dans les conteneurs est bien valide.
+Vérifier que dans les deux cas l'environnement dans les conteneurs est bien valide.
