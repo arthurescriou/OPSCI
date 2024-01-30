@@ -94,7 +94,9 @@ Vous devrez configurer correctement les conteneurs pour qu'ils interagissent ent
 
 Veillez bien à sauvegarder dans des fichiers toutes les commandes que vous allez lancer dans l'objectif de déployer l'application.
 
-- Le dépôt git devra aussi comporter un `readme.md` référencant l'endroit ou est déployé votre application (adresse IP, nom de machines).
+Veillez également à proposer des scripts permettant de lancer **et** eteindre les éléments de l'application.
+
+- Le dépôt git devra aussi comporter un `readme.md` référencant l'endroit ou est déployé votre application (adresse IP, nom de machines, nom de conteneurs, etc).
 
   Ainsi que les endpoints nécessaire à son utilisation : adresses et ports de tous les éléments de l'application.
 
