@@ -2,17 +2,17 @@
 
 ## Requirement 
 
-1. Create the network.
+- 1. Create the network.
 ```
 docker network create redis-app
 ```
 
-2. Pull the redis Docker image. Go the DockerHub website https://hub.docker.com/_/redis
+- 2. Pull the redis Docker image. Go the DockerHub website https://hub.docker.com/_/redis
 ```
 docker pull redis
 ```
 
-3. Start a redis container
+- 3. Start a redis container
 ```
 docker run --name node-redis --network todo-app -d redis
 ```
@@ -22,7 +22,7 @@ docker run --name node-redis --network todo-app -d redis
 
 #### Get the app 
 
-4. Clone the redis-node-app repository using the following command:
+- 4. Clone the redis-node-app repository using the following command:
 
 ```bash
 git clone https://github.com/arthurescriou/redis-node.git 
@@ -30,18 +30,18 @@ git clone https://github.com/arthurescriou/redis-node.git
 
 #### Build the app's image
 
-5. In the terminal, run the following commands :
+- 5. In the terminal, run the following commands :
   
 ``` bash
 cd /path/to/redis-node-app
 ```
 
-6. Create an empty file named Dockerfile.
+- 6. Create an empty file named Dockerfile.
 
 ```` bash
 touch Dockerfile
 ````
-7. Using a text editor or code editor, add the following contents to the Dockerfile:
+- 7. Using a text editor or code editor, add the following contents to the Dockerfile:
 
 ```` docker
 FROM node:18-alpine
@@ -51,7 +51,7 @@ EXPOSE 8080
 CMD node main.js
 ````
 
-8. Build the image. 
+- 8. Build the image. 
 ``` bash
 docker build -t redis-node .
 ```
@@ -67,7 +67,7 @@ The . at the end of the docker build command tells Docker that it should look fo
 
 ### Start an app container
 
-9. Run your container using the docker run command and specify the name of the image you just created:
+- 9. Run your container using the docker run command and specify the name of the image you just created:
 ```
 docker run -dp 127.0.0.1:3000:3000 redis-node
 ```
@@ -78,7 +78,7 @@ The -d flag (short for --detach) runs the container in the background. This mean
 The -p flag (short for --publish) creates a port mapping between the host and the container. The -p flag takes a string value in the format of HOST:CONTAINER, where HOST is the address on the host, and CONTAINER is the port on the container. The command publishes the container's port 3000 to 127.0.0.1:3000 (localhost:3000) on the host. Without the port mapping, you wouldn't be able to access the application from the host.
 
 
-10. Run the following docker ps command in a terminal to list your containers.
+- 10. Run the following docker ps command in a terminal to list your containers.
 
 ``` bash
 docker ps
@@ -94,15 +94,15 @@ df784548666d        redis-node     "docker-entrypoint.sâ¦"   2 minutes ago  
 
 #### Update the source code
 
-11. In the src/static/js/app.js file, update line to use the new empty text.
+- 11. In the src/static/js/app.js file, update line to use the new empty text.
 
-12. Build your updated version of the image, using the docker build command.
+- 12. Build your updated version of the image, using the docker build command.
 
 ``` docker
 docker build -t redis-node  .
 ```
 
-13. Start a new container using the updated code.
+- 13. Start a new container using the updated code.
 ``` docker 
 docker run -dp 127.0.0.1:3000:3000 redis-node 
 ```
@@ -115,22 +115,22 @@ docker: Error response from daemon: driver failed programming external connectiv
 
 #### Remove the old container
 
-14. Get the ID of the container by using the docker ps command.
+- 14. Get the ID of the container by using the docker ps command.
 ```
 docker ps
 ```
 
-15. Use the docker stop command to stop the container. Replace <the-container-id> with the ID from docker ps
+- 15. Use the docker stop command to stop the container. Replace <the-container-id> with the ID from docker ps
 ```
 docker stop <the-container-id>
 ```
 
-16. Once the container has stopped, you can remove it by using the docker rm command.
+- 16. Once the container has stopped, you can remove it by using the docker rm command.
 ```
 docker rm <the-container-id>
 ```
 
-17. Now, start your updated app using the docker run command.
+- 17. Now, start your updated app using the docker run command.
 ```
 docker run -dp 127.0.0.1:3000:3000 redis-node 
 ```
@@ -139,21 +139,21 @@ docker run -dp 127.0.0.1:3000:3000 redis-node
 
 ### React
 
-18. Clone the redis-react app 
+- 18. Clone the redis-react app 
 ```
 git clone https://github.com/arthurescriou/redis-react.git
 ```
-19. Create the redis-react dockerfile
+- 19. Create the redis-react dockerfile
 ```
 A FAIRE
 ```
 
-20. Build the image 
+- 20. Build the image 
 
 ```
 docker image build -t redis-react:latest .
 ```
-21. Start a redis container
+- 21. Start a redis container
 ```
 docker run --name redis-react --network redis-app -d redis
 ```
