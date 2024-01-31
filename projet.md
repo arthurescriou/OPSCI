@@ -93,6 +93,7 @@ Vous devrez configurer correctement les conteneurs pour qu'ils interagissent ent
 - Une vidéo de démonstration type **screencast** (environ 3-5 minutes), qui parcours les différentes fonctionnalitées de l'application déployée.
 
 - Un dépôt git accessible en ligne comportant tous les fichiers que vous avez écrit (Dockerfile, script shell, etc).
+  Ainsi que la vidéo de démonstration.
 
 Veillez bien à sauvegarder dans des fichiers toutes les commandes que vous allez lancer dans l'objectif de déployer l'application.
 
