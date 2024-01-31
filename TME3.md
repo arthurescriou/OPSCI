@@ -44,7 +44,7 @@ touch Dockerfile
 7. Using a text editor or code editor, add the following contents to the Dockerfile:
 
 ```` docker
-FROM node:alpine
+FROM node:18-alpine
 COPY . .
 RUN yarn
 EXPOSE 8080
