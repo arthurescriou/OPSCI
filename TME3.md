@@ -7,12 +7,12 @@
 docker network create redis-app
 ```
 
-1. Pull the redis Docker image. Go the DockerHub website https://hub.docker.com/_/redis
+2. Pull the redis Docker image. Go the DockerHub website https://hub.docker.com/_/redis
 ```
 docker pull redis
 ```
 
-2. Start a redis container
+3. Start a redis container
 ```
 docker run --name node-redis --network todo-app -d redis
 ```
