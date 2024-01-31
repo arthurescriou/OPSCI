@@ -186,6 +186,7 @@ docker run -dp 127.0.0.1:3000:3000 redis-node
 ```
 git clone https://github.com/arthurescriou/redis-react.git
 ```
+
 {:start="19"}
 19. Create the redis-react dockerfile
 
@@ -201,6 +202,7 @@ A FAIRE
 ```
 docker image build -t redis-react:latest .
 ```
+
 {:start="21"}
 21. Start a redis container
 
