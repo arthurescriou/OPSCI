@@ -1,5 +1,23 @@
 # TME 3 : Docker
 
+## Requirement 
+
+1. Create the network.
+```
+docker network create redis-app
+```
+
+1. Pull the redis Docker image. Go the DockerHub website https://hub.docker.com/_/redis
+```
+docker pull redis
+```
+
+2. Start a redis container
+```
+docker run --name node-redis --network todo-app -d redis
+```
+
+
 ## Containerize an application 
 
 #### Get the app 
@@ -104,23 +122,6 @@ docker run -dp 127.0.0.1:3000:3000 redis-node
 
 ## Multi container apps
 
-### Redis
-
-15. Create the network.
-```
-docker network create todo-app
-```
-
-16. Pull the redis Docker image.
-```
-docker pull redis
-```
-
-17. Start a redis container
-```
-docker run --name node-redis --network todo-app -d redis
-```
-
 ### React
 
 18. Clone the redis-react app 
@@ -129,12 +130,7 @@ git clone https://github.com/arthurescriou/redis-react.git
 ```
 19. Create the redis-react dockerfile
 ```
-FROM node:alpine
-COPY . .
-WORKDIR /path/to/redis-node-app 
-RUN yarn
-EXPOSE 3000
-CMD CMD ["npm", "start"]
+A FAIRE
 ```
 
 20. Build the image 
@@ -144,7 +140,7 @@ docker image build -t redis-react:latest .
 ```
 21. Start a redis container
 ```
-docker run --name redis-react --network todo-app -d redis
+docker run --name redis-react --network redis-app -d redis
 ```
 
 ## Bonus Exercise 
