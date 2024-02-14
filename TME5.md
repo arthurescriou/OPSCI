@@ -52,7 +52,7 @@ docker run -d --name gitlab-runner --restart always \
   gitlab/gitlab-runner:latest
 ```
 
-You will need some values:
+You will need to specify some values:
 
 - Your GitLab instance URL : `gitlab.com`
 - A runner identification token ( you can generate one on this page : `https://gitlab.com/${yourname}/ci-cd/-/runners/new`)
