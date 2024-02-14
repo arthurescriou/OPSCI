@@ -28,21 +28,6 @@ git remote set-url origin https://gitlab.com/<your_username>/redis-node.git
 
 #### 3. Create a GitLab Runner with token access
 
-Log in to GitLab:
-
-```bash
-gitlab login
-```
-
-Enter your GitLab username and password.
-
-```bash
-gitlab config set --global url your_gitlab_url
-gitlab config set --global personal_access_token your_access_token
-```
-
-Replace `your_gitlab_url` with your GitLab instance URL (e.g., https://gitlab.com) and `your_access_token` with a personal access token with sufficient permissions (e.g., "api"). You can create a personal access token with the required scope from your GitLab profile settings.
-
 Register the runner:
 
 ```bash
