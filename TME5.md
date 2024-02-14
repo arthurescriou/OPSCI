@@ -23,7 +23,7 @@ git pull origin master
 Modify the project's remote to point to your GitLab repository.
 
 ```bash
-git remote set-url origin https://gitlab.com/<your_username>/redis-node.git
+git remote set-url origin https://gitlab.com/<yourname>/redis-node.git
 ```
 
 #### 3. Create a GitLab Runner with token access
@@ -31,6 +31,10 @@ git remote set-url origin https://gitlab.com/<your_username>/redis-node.git
 Login to gitlab.com. Create a repository `redis-node`.
 
 Create a folder `/srv/gitlab-runner/config`.
+
+```sh
+mkdir -p /srv/gitlab-runner/config
+```
 
 Register the runner:
 
