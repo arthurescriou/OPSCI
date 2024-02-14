@@ -65,9 +65,7 @@ This will start the runner in the background, allowing it to execute jobs sent b
 
 #### 4.Create the pipeline
 
-Create a `.gitlab-ci.yml` file at the root of the project.
-
-Un exmple du contenue qu'on peut retrouver dans le fichier .yml:
+Create a `.gitlab-ci.yml` file at the root of the project :
 
 ```yml
 image: node:18
@@ -87,6 +85,10 @@ test:
 docker:
   script:
     - docker build -t <image_name> .
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      exists:
+        - Dockerfile
 ```
 
 Replace the placeholder with your value:
