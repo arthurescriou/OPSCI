@@ -128,10 +128,10 @@ Add a docker login step before the docker build and docker push step.
 
 We also need to specify some variables in the secret environment of the repository :
 
-- CI_REGISTRY_USERNAME : your dockerhub username
-- CI_REGISTRY_IMAGE : the name of the image
-- CI_IMAGE_TAG : the version of the image
-- CI_REGISTRY_PASSWORD : your dockerhub password (be sure to put this one in hidden mode)
+- `CI_REGISTRY_USERNAME` : your dockerhub username
+- `CI_REGISTRY_IMAGE` : the name of the image
+- `CI_IMAGE_TAG` : the version of the image
+- `CI_REGISTRY_PASSWORD` : your dockerhub password (be sure to put this one in hidden mode)
 
 Add these configuration globally in your `gitlab-ci.yml`.
 
