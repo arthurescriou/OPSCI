@@ -63,6 +63,8 @@ If successful, the container will start and you will be able to find it in the g
 
 This will start the runner in the background, allowing it to execute jobs sent by your GitLab instance.
 
+### Part 2 : Pipeline
+
 #### 4.Create the pipeline
 
 Create a `.gitlab-ci.yml` file at the root of the project :
@@ -72,7 +74,6 @@ image: node:18
 stages:
   - build
   - test
-  - docker
 
 build:
   script:
@@ -81,21 +82,7 @@ build:
 test:
   script:
     - npm run test
-
-docker:
-  script:
-    - docker build -t <image_name> .
-  rules:
-    - if: $CI_COMMIT_BRANCH
-      exists:
-        - Dockerfile
 ```
-
-Replace the placeholder with your value:
-
-- `<image_name>`: The name of your image to build and deploy
-
-### Part 2: Execution
 
 #### Push your changes to GitLab:
 
@@ -109,13 +96,31 @@ And if everything goes well you will see a success execution.
 
 <img src="img/ciok.png"/>
 
-### Part 3 : Push the image on Dockerhub :
+Replace the placeholder with your value:
+
+- `<image_name>`: The name of your image to build and deploy
+
+### Part 3 : Add docker in the pipeline
 
 #### 1.Create a Docker Hub account:
 
 Visit https://hub.docker.com/ and sign up/sign in.
 
-#### 2.Configure image name and authentication
+#### 2. Build a docker image in the pipeline
+
+Add a job to build a docker image. (You will also need a `Dockerfile` at the root of the repository.)
+
+```yml
+docker:
+  script:
+    - docker build -t <image_name> .
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      exists:
+        - Dockerfile
+```
+
+#### 3.Configure image name and authentication
 
 We want now to push our images on docker hube automatically.
 
@@ -128,36 +133,22 @@ We also need to specify some variables in the secret environment of the reposito
 - CI_IMAGE_TAG : the version of the image
 - CI_REGISTRY_PASSWORD : your dockerhub password (be sure to put this one in hidden mode)
 
+Add these configuration globally in your `gitlab-ci.yml`.
+
 ```yml
-image: node:18
-stages:
-  - build
-  - test
-  - docker
 variables:
   DOCKER_IMAGE_NAME: $CI_REGISTRY_USERNAME/$CI_REGISTRY_IMAGE:$CI_IMAGE_TAG
 before_script:
   - docker login -u "$CI_REGISTRY_USERNAME" -p "$CI_REGISTRY_PASSWORD"
-
-build:
-  script:
-    - npm install
-
-test:
-  script:
-    - npm run test
-
-docker:
-  script:
-    - docker build -t "$DOCKER_IMAGE_NAME" .
-    - docker push "$DOCKER_IMAGE_NAME"
-  rules:
-    - if: $CI_COMMIT_BRANCH
-      exists:
-        - Dockerfile
 ```
 
-#### 3.Push changes and trigger pipeline:
+And add a new step in your `docker` job.
+
+```yml
+- docker push "$DOCKER_IMAGE_NAME"
+```
+
+#### 4.Push changes and trigger pipeline:
 
 The pipeline will automatically run due to GitLab CI/CD's push triggers.
 
