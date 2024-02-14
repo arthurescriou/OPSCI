@@ -30,6 +30,8 @@ git remote set-url origin https://gitlab.com/<your_username>/redis-node.git
 
 Login to gitlab.com. Create a repository `redis-node`.
 
+Create a folder `/srv/gitlab-runner/config`.
+
 Register the runner:
 
 ```bash
