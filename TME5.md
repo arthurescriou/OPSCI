@@ -96,10 +96,6 @@ And if everything goes well you will see a success execution.
 
 <img src="img/ciok.png"/>
 
-Replace the placeholder with your value:
-
-- `<image_name>`: The name of your image to build and deploy
-
 ### Part 3 : Add docker in the pipeline
 
 #### 1.Create a Docker Hub account:
@@ -119,6 +115,10 @@ docker:
       exists:
         - Dockerfile
 ```
+
+Replace the placeholder with your value:
+
+- `<image_name>`: The name of your image to build and deploy
 
 #### 3.Configure image name and authentication
 
