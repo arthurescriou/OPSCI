@@ -151,6 +151,10 @@ docker:
   script:
     - docker build -t "$DOCKER_IMAGE_NAME" .
     - docker push "$DOCKER_IMAGE_NAME"
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      exists:
+        - Dockerfile
 ```
 
 #### 3.Push changes and trigger pipeline:
