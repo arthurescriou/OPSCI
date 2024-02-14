@@ -56,6 +56,23 @@ If successful, the container will start and you will be able to find it in the g
 
 This will start the runner in the background, allowing it to execute jobs sent by your GitLab instance.
 
+If the container runner logs print error like `gitlab-runner/config.toml no such file or directory`
+
+Edit directly your `config.toml` file.
+
+```toml
+[[runners]]
+  name = "node:18"
+  url = "https://gitlab.com/"
+  token = "<TOKEN>"
+  limit = 0
+  executor = "docker"
+  builds_dir = ""
+  shell = ""
+  environment = ["ENV=value", "LC_ALL=en_US.UTF-8"]
+  clone_url = "http://gitlab.example.local"
+```
+
 ### Part 2 : Pipeline
 
 #### 4.Create the pipeline
