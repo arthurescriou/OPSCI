@@ -28,6 +28,8 @@ git remote set-url origin https://gitlab.com/<your_username>/redis-node.git
 
 #### 3. Create a GitLab Runner with token access
 
+Login to gitlab.com. Create a repository `redis-node`.
+
 Register the runner:
 
 ```bash
@@ -40,7 +42,7 @@ docker run -d --name gitlab-runner --restart always \
 You will need to specify some values:
 
 - Your GitLab instance URL : `gitlab.com`
-- A runner identification token ( you can generate one on this page : `https://gitlab.com/${yourname}/ci-cd/-/runners/new`)
+- A runner identification token ( you can generate one on this page : `https://gitlab.com/${yourname}/redis-node/-/runners/new`)
 - A descriptive name for your runner
 - A base image for your runner : `node:18-alpine` for instance
 
