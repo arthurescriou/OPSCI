@@ -118,6 +118,7 @@ Add a job to build a docker image. (You will also need a `Dockerfile` at the roo
 
 ```yml
 docker:
+  image: docker:cli
   script:
     - docker build -t <image_name> .
   rules:
