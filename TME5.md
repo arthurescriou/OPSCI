@@ -12,6 +12,12 @@ Clone the following project:
 git clone https://github.com/arthurescriou/redis-node.git
 ```
 
+or if you already have the repository
+
+```bash
+git pull origin master
+```
+
 #### 2. Configure the GitLab remote
 
 Modify the project's remote to point to your GitLab repository.
@@ -20,12 +26,9 @@ Modify the project's remote to point to your GitLab repository.
 git remote set-url origin https://gitlab.com/<your_username>/redis-node.git
 ```
 
-
-
 #### 3. Create a GitLab Runner with token access
 
 Log in to GitLab:
-
 
 ```bash
 gitlab login
@@ -38,144 +41,114 @@ gitlab config set --global url your_gitlab_url
 gitlab config set --global personal_access_token your_access_token
 ```
 
-
-Replace ``your_gitlab_url`` with your GitLab instance URL (e.g., https://gitlab.com) and ``your_access_token`` with a personal access token with sufficient permissions (e.g., "api"). You can create a personal access token with the required scope from your GitLab profile settings.
+Replace `your_gitlab_url` with your GitLab instance URL (e.g., https://gitlab.com) and `your_access_token` with a personal access token with sufficient permissions (e.g., "api"). You can create a personal access token with the required scope from your GitLab profile settings.
 
 Register the runner:
 
-
 ```bash
-gitlab runner register \
-  --url your_gitlab_url \
-  --token your_access_token \
-  --executor shell \
-  --name "your_runner_name" \
-  --description "Shell runner for CI/CD" \
-  --tags "node"
+docker run -d --name gitlab-runner --restart always \
+  -v /srv/gitlab-runner/config:/etc/gitlab-runner \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  gitlab/gitlab-runner:latest
 ```
 
+You will need some values:
 
-Replace the placeholders with your values:
-* ``your_gitlab_url``: Your GitLab instance URL
-* ``your_access_token``: Your personal access token
-* ``your_runner_name``: A descriptive name for your runner
-* ``node``: An optional tag indicating your runner's capabilities (replace with other relevant tags if needed)
+- Your GitLab instance URL : `gitlab.com`
+- A runner identification token ( you can generate one on this page : `https://gitlab.com/${yourname}/ci-cd/-/runners/new`)
+- A descriptive name for your runner
+- A base image for your runner : `node:18-alpine` for instance
 
-If successful, the command will output details about your newly registered runner.
-
-Start the runner:
-
-```bash
-gitlab-runner run &
-```
+If successful, the container will start and you will be able to find it in the gitlab interface.
 
 This will start the runner in the background, allowing it to execute jobs sent by your GitLab instance.
 
-
-**Additional points:**
-
-* You can use ``gitlab-runner`` info to check the status of your runner.
-* You can use ``gitlab-runner`` unregister to unregister your runner.
-
-
 #### 4.Create the pipeline
 
-Create a ``.gitlab-ci.yml`` file at the root of the project.
+Create a `.gitlab-ci.yml` file at the root of the project.
 
 Un exmple du contenue qu'on peut retrouver dans le fichier .yml:
 
 ```yml
-image: node:16
+image: node:18
 stages:
   - build
   - test
-  - deploy
+  - docker
 
 build:
   script:
     - npm install
-    - npm run build
 
 test:
   script:
     - npm run test
 
-deploy:
+docker:
   script:
     - docker build -t <image_name> .
-    - docker push <image_name>
-    - ssh <user>@<server> "docker pull <image_name> && docker run -d <image_name>"
 ```
 
-Replace the placeholders with your values:
+Replace the placeholder with your value:
 
-* ``<image_name>``: The name of your image to build and deploy
-* ``<user>@<server>``: The username and server address for where you want to deploy the image
+- `<image_name>`: The name of your image to build and deploy
 
 ### Part 2: Execution
-#### 1.Register the runner:
 
-```bash
-gitlab-runner register
-```
-
-#### 2.Start the runner:
-
-```bash
-gitlab-runner run &
-```
-
-#### 3.Push your changes to GitLab:
+#### Push your changes to GitLab:
 
 ```bash
 git push
 ```
+
 The pipeline will be automatically triggered.
 
-### Part 3 :Adding a test
+And if everything goes well you will see a success execution.
 
-#### 1.Create a test script:
+<img src="img/ciok.png"/>
 
-```bash
-console.log("Hello world");
-process.exit(0);
-```
+### Part 3 : Push the image on Dockerhub :
 
-#### 2.Modify the .gitlab-ci.yml file:
-
-```yml
-test:
-  script:
-    - npm run test
-    - npm run coverage
-```
-
-### Part 4 : Deploy to Docker Hub using :
 #### 1.Create a Docker Hub account:
 
 Visit https://hub.docker.com/ and sign up/sign in.
 
 #### 2.Configure image name and authentication
 
-In your .gitlab-ci.yml file, replace <image_name> with your desired Docker Hub image name (your_username/<image_name>).
+We want now to push our images on docker hube automatically.
 
-Add a docker login step before the docker build and docker push steps:
+Add a docker login step before the docker build and docker push step.
+
+We also need to specify some variables in the secret environment of the repository :
+
+- CI_REGISTRY_USERNAME : your dockerhub username
+- CI_REGISTRY_IMAGE : the name of the image
+- CI_IMAGE_TAG : the version of the image
+- CI_REGISTRY_PASSWORD : your dockerhub password (be sure to put this one in hidden mode)
 
 ```yml
-...
-deploy:
-  image: docker/cli:latest
+image: node:18
+stages:
+  - build
+  - test
+  - docker
+variables:
+  DOCKER_IMAGE_NAME: $CI_REGISTRY_USERNAME/$CI_REGISTRY_IMAGE:$CI_IMAGE_TAG
+before_script:
+  - docker login -u "$CI_REGISTRY_USERNAME" -p "$CI_REGISTRY_PASSWORD"
+
+build:
   script:
-    - docker login -u your_dockerhub_username -p your_dockerhub_token
-    - docker build -t your_username/<image_name> .
-    - docker push your_username/<image_name>
+    - npm install
 
-```
-Replace placeholders with your Docker Hub username and token:
+test:
+  script:
+    - npm run test
 
-```bash
-your_dockerhub_username=your_actual_username
-your_dockerhub_token=your_personal_access_token
+docker:
+  script:
+    - docker build -t "$DOCKER_IMAGE_NAME" .
+    - docker push "$DOCKER_IMAGE_NAME"
 ```
 
 #### 3.Push changes and trigger pipeline:
@@ -184,10 +157,18 @@ The pipeline will automatically run due to GitLab CI/CD's push triggers.
 
 ### Part 5 : GitLab Pages deployment using:
 
+Clone the react-redis repository and host it with gitlab pages.
+
 #### 1.Activate GitLab Pages:
 
-* Go to your GitLab project settings -> Pages.
-* Choose a subdomain or use your root domain.
-* Click "Save changes."
+- Go to your GitLab project settings -> Pages.
+- Choose a subdomain or use your root domain.
+- Click "Save changes."
 
-#### 2.Add GitLab Pages job to .gitlab-ci.yml
+#### 2.Create a gitlab-ci.yml file
+
+The gitlab-ci.yml must specify a job that will build the react project and will specify the `build` folder as artifact for gitlab pages.
+
+### Part 6 : Deployment (bonus)
+
+Now that every images are built. How can we deploy it on a kubernetes cluster or on machine with docker ? (from gitlab of course)
