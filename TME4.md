@@ -10,7 +10,7 @@
 
 **React-node dockerfile**
 
-```dockerfile
+```sh
 # Use the official Node.js 18 as a parent image
 FROM node:18
 
@@ -87,7 +87,7 @@ app.listen(PORT, () => {
 
 - Create a package.json file:
 
-```
+```json
 {
   "name": "hello-world-app",
   "version": "1.0.0",
@@ -104,7 +104,7 @@ app.listen(PORT, () => {
 
 - Dockerfile:
 
-```
+```sh
 # Use an official Node runtime as a parent image
 FROM node:18
 
@@ -133,7 +133,7 @@ CMD ["node", "app.js"]
 
 4. Write a Kubernetes deployment YAML file to deploy your containerized application. Specify the Docker image you pushed to the registry.
 
-```
+```yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -149,10 +149,10 @@ spec:
         app: hello-world-node
     spec:
       containers:
-      - name: hello-world-node
-        image: yourusername/hello-world-node
-        ports:
-        - containerPort: 3000
+        - name: hello-world-node
+          image: yourusername/hello-world-node
+          ports:
+            - containerPort: 3000
 ```
 
 6. Use kubectl apply -f your_deployment_file.yaml to create the deployment in your cluster.
@@ -161,7 +161,7 @@ spec:
 
 6. Expose your application to the Internet by creating a Kubernetes service. You can start with a ClusterIP service and then upgrade it to a LoadBalancer or use an Ingress for more advanced scenarios.
 
-```
+```yml
 apiVersion: v1
 kind: Service
 metadata:
