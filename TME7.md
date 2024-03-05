@@ -31,6 +31,8 @@ docker run --rm -p 9092:9092 -e KAFKA_ZOOKEEPER_CONNECT=localhost:2181 confluent
 
 Les services ZooKeeper et Kafka sont démarrés et accessibles sur les ports 2181 et 9092 respectivement.
 
+{:start="2"}
+
 2. Vérifier la connexion vers le serveur Kafka
 
 ```bash
@@ -41,6 +43,8 @@ kafka-topics --list --bootstrap-server localhost:9092
 
 La liste des topics disponibles sur le serveur Kafka est affichée.
 
+{:start="3"}
+
 3. Création de producer
 
 ```bash
@@ -50,6 +54,8 @@ kafka-console-producer --topic my-topic --bootstrap-server localhost:9092
 #### Résultat:
 
 Producer simple: Les messages saisis sont envoyés au topic my-topic.
+
+{:start="4"}
 
 4. Création de consumers:
 
@@ -70,6 +76,8 @@ kafka-console-consumer --topic my-topic --from-beginning --bootstrap-server loca
 - Consumer simple: Les messages du topic my-topic sont affichés au fur et à mesure qu'ils sont produits.
 - Consumer avec filtrage: Seuls les messages dont la clé commence par la lettre A sont affichés.
 
+{:start="5"}
+
 5. Création de topics:
 
 ```bash
@@ -79,6 +87,8 @@ kafka-topics --create --topic my-topic --partitions 1 --replicas 1 --bootstrap-s
 #### Résultat:
 
 Le topic my-topic est créé avec 1 partition et 1 réplique.
+
+{:start="6"}
 
 6. Abonnement sur les topics:
 
@@ -99,6 +109,8 @@ kafka-console-consumer --topic my-topic --group my-group --bootstrap-server loca
 Consumer simple: Les messages du topic my-topic sont reçus et affichés par le consumer.
 Consumer avec groupe: Les messages du topic my-topic sont reçus et affichés par un des consumers du groupe my-group.
 
+{:start="7"}
+
 7. Envoie de messages:
 
 Envoi d'un message:
@@ -117,6 +129,8 @@ cat messages.txt | kafka-console-producer --topic my-topic --bootstrap-server lo
 
 Envoi d'un message: Le message est affiché par le consumer.
 Envoi de plusieurs messages: Tous les messages du fichier sont envoyés et affichés par le consumer.
+
+{:start="8"}
 
 8. Réception de messages:
 
@@ -137,6 +151,8 @@ kafka-console-consumer --topic my-topic --group my-group --bootstrap-server loca
 Consumer simple: Les messages du topic my-topic sont reçus et affichés par le consumer.
 Consumer avec groupe: Les messages du topic my-topic sont reçus et affichés par un des consumers du groupe my-group.
 
+{:start="9"}
+
 9. Envoie de message de consumer à producer comme quoi ils ont bien reçu les messages:
 
 Consumer avec accusé de réception:
@@ -155,6 +171,8 @@ kafka-console-producer --topic my-topic --bootstrap-server localhost:9092 --deli
 
 Consumer avec accusé de réception: Le consumer envoie un accusé de réception pour chaque message reçu.
 Producer avec affichage des accusés de réception: Le producer affiche les accusés de réception reçus.
+
+{:start="10"}
 
 10. Création de groupe de consumers:
 
@@ -182,6 +200,8 @@ Créer un groupe: Le groupe my-group est créé.
 Lister les groupes: La liste des groupes créés est affichée.
 Décrire un groupe: Les informations du groupe my-group sont affichées.
 
+{:start="11"}
+
 11. Faire que les groupes s'abonnent sur différents topics:
 
 Consumer du groupe 1:
@@ -200,6 +220,8 @@ kafka-console-consumer --topic topic-2 --group group-2 --bootstrap-server localh
 
 - Consumer du groupe 1: Seuls les messages du topic topic-1 sont reçus et affichés.
 - Consumer du groupe 2: Seuls les messages du topic topic-2 sont reçus et affichés.
+
+{:start="12"}
 
 12. Producer envoie des messages que sur des topics en particulier:
 
@@ -220,6 +242,8 @@ kafka-console-producer --topic topic-2 --bootstrap-server localhost:9092
 - Producer envoie sur topic-1: Les messages saisis sont envoyés au topic topic-1.
 - Producer envoie sur topic-2: Les messages saisis sont envoyés au topic topic-2.
 
+{:start="13"}
+
 13. Réception de message que pour le groupe de consumers qui sont abonné:
 
 Consumer du groupe 1:
@@ -238,6 +262,8 @@ kafka-console-consumer --topic topic-2 --group group-2 --bootstrap-server localh
 
 Consumer du groupe 1: Seuls les messages du topic topic-1 sont reçus et affichés.
 Consumer du groupe 2: Seuls les messages du topic topic-2 sont reçus et affichés.
+
+{:start="14"}
 
 14. Les consumer qui ont reçu le message envoie une réponse au producers:
 
@@ -283,6 +309,8 @@ while true; do
 done
 ```
 
+{:start="2"}
+
 2. Envoi programmé de messages
 
 ```bash
@@ -308,6 +336,8 @@ while true; do
   sleep 1
 done
 ```
+
+{:start="3"}
 
 3. Envoi programmé de messages avec cron
 

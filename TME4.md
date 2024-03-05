@@ -183,8 +183,7 @@ spec:
 #### Scaling the Application:
 
 8. Scale your deployment to run multiple replicas of your application. Consider the load and how many instances you need to handle it.
-9.
-10. Use kubectl scale deployment your_deployment_name --replicas=3 to scale your deployment to 3 replicas.
+9. Use kubectl scale deployment your_deployment_name --replicas=3 to scale your deployment to 3 replicas.
 
 #### Updating the Application:
 
