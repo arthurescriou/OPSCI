@@ -17,14 +17,45 @@ Ce TME vous guide à travers les étapes de la configuration et de l'utilisation
 
 ## Étapes
 
-1. Lancement des services Kafka et ZooKeeper avec Docker
+1. Lancement des services Kafka et ZooKeeper avec Docker compose
+
+```yaml
+version: '3'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - '2181:2181'
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - '9092:9092'
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+```
+
+Lors de ce TME on a besoin d'utilser les commandes `kafka-topics`, `kafka-console-producer` et `kafka-console-consumer`.
+Cependant ces commandes viennent de l'intérieur du conteneur kafka.
+
+Pour éviter des commandes trop longues on va créer des alias (attention les alias n'existeront que dans le terminal dans lequel on les crée).
 
 ```bash
-# Démarrer ZooKeeper
-docker run --rm -p 2181:2181 zookeeper
+### trouver le script  kafka-topics
+docker exec -t kafka-kafka-1 find / -name kafka-topics.sh
+alias kafka-topics='docker exec -t $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
 
-# Démarrer Kafka
-docker run --rm -p 9092:9092 -e KAFKA_ZOOKEEPER_CONNECT=localhost:2181 confluentinc/cp-kafka:6.2.1
+### de même pour les scripts suivants
+docker exec -t kafka-kafka-1 find / -name kafka-console-producer.sh
+alias kafka-console-producer='docker exec -t $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
+
+docker exec -t kafka-kafka-1 find / -name kafka-console-consumer.sh
+alias kafka-console-consumer='docker exec -t $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
 ```
 
 #### Résultat:
