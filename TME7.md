@@ -52,7 +52,8 @@ alias kafka-topics='docker exec -t kafka-kafka-1 $RESULTAT_DE_LA_LIGNE_PRECEDENT
 
 ### de même pour les scripts suivants
 docker exec -t kafka-kafka-1 find / -name kafka-console-producer.sh
-alias kafka-console-producer='docker exec -t kafka-kafka-1 $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
+
+alias kafka-console-producer='docker exec -i kafka-kafka-1 $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
 
 docker exec -t kafka-kafka-1 find / -name kafka-console-consumer.sh
 alias kafka-console-consumer='docker exec -t kafka-kafka-1 $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
@@ -79,7 +80,7 @@ La liste des topics disponibles sur le serveur Kafka est affichée.
 3. Création de producer
 
 ```bash
-kafka-console-producer --topic my-topic --bootstrap-server localhost:9092
+echo "test" | kafka-console-producer --topic my-topic --bootstrap-server localhost:9092
 ```
 
 #### Résultat:
