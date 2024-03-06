@@ -113,7 +113,7 @@ kafka-console-consumer --topic my-topic --from-beginning --bootstrap-server loca
 5. Création de topics:
 
 ```bash
-kafka-topics --create --topic my-topic --partitions 1 --replicas 1 --bootstrap-server localhost:9092
+kafka-topics --create --topic my-topic --partitions 1 --replication-factor 1 --bootstrap-server localhost:9092
 ```
 
 #### Résultat:
