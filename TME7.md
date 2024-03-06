@@ -48,14 +48,14 @@ Pour éviter des commandes trop longues on va créer des alias (attention les al
 ```bash
 ### trouver le script  kafka-topics
 docker exec -t kafka-kafka-1 find / -name kafka-topics.sh
-alias kafka-topics='docker exec -t $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
+alias kafka-topics='docker exec -t kafka-kafka-1 $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
 
 ### de même pour les scripts suivants
 docker exec -t kafka-kafka-1 find / -name kafka-console-producer.sh
-alias kafka-console-producer='docker exec -t $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
+alias kafka-console-producer='docker exec -t kafka-kafka-1 $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
 
 docker exec -t kafka-kafka-1 find / -name kafka-console-consumer.sh
-alias kafka-console-consumer='docker exec -t $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
+alias kafka-console-consumer='docker exec -t kafka-kafka-1 $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
 ```
 
 #### Résultat:
