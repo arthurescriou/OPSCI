@@ -56,7 +56,10 @@ docker exec -t kafka-kafka-1 find / -name kafka-console-producer.sh
 alias kafka-console-producer='docker exec -i kafka-kafka-1 $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
 
 docker exec -t kafka-kafka-1 find / -name kafka-console-consumer.sh
-alias kafka-console-consumer='docker exec -t kafka-kafka-1 $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
+alias kafka-console-consumer='docker exec -it kafka-kafka-1 $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
+
+docker exec -it kafka-kafka-1 find / -name kafka-consumer-groups.sh
+alias kafka-consumer-groups='docker exec -it kafka-kafka-1 $RESULTAT_DE_LA_LIGNE_PRECEDENTE'
 ```
 
 #### Résultat:
@@ -80,12 +83,12 @@ La liste des topics disponibles sur le serveur Kafka est affichée.
 3. Création de producer
 
 ```bash
-echo "test" | kafka-console-producer --topic my-topic --bootstrap-server localhost:9092
+echo "test" | kafka-console-producer --topic [TOPIC] --bootstrap-server localhost:9092
 ```
 
 #### Résultat:
 
-Producer simple: Les messages saisis sont envoyés au topic my-topic.
+Les messages saisis sont envoyés au topic `[TOPIC]`.
 
 {:start="4"}
 
@@ -94,67 +97,71 @@ Producer simple: Les messages saisis sont envoyés au topic my-topic.
 ##### Consumer simple:
 
 ```bash
-kafka-console-consumer --topic my-topic --from-beginning --bootstrap-server localhost:9092
-```
-
-##### Consumer avec filtrage:
-
-```bash
-kafka-console-consumer --topic my-topic --from-beginning --bootstrap-server localhost:9092 --filter "substring(key, 0, 1) = 'A'"
+kafka-console-consumer --topic [TOPIC] --from-beginning --bootstrap-server localhost:9092
 ```
 
 #### Résultat:
-
-- Consumer simple: Les messages du topic my-topic sont affichés au fur et à mesure qu'ils sont produits.
-- Consumer avec filtrage: Seuls les messages dont la clé commence par la lettre A sont affichés.
+Les messages du topic `[TOPIC]` sont affichés au fur et à mesure qu'ils sont produits.
 
 {:start="5"}
 
 5. Création de topics:
 
 ```bash
-kafka-topics --create --topic my-topic --partitions 1 --replication-factor 1 --bootstrap-server localhost:9092
+kafka-topics --create --topic [TOPIC] --partitions 1 --replication-factor 1 --bootstrap-server localhost:9092
 ```
 
 #### Résultat:
 
-Le topic my-topic est créé avec 1 partition et 1 réplique.
+Le topic `[TOPIC]` est créé avec 1 partition et 1 réplique.
 
 {:start="6"}
 
 6. Abonnement sur les topics:
 
-##### Consumer simple:
+#### Consumer simple:
 
 ```bash
-kafka-console-consumer --topic my-topic --from-beginning --bootstrap-server localhost:9092
+kafka-console-consumer --topic [TOPIC] --from-beginning --bootstrap-server localhost:9092
 ```
+#### Résultat:
+* Les messages du topic `[TOPIC]` sont reçus et affichés par le consumer.
 
-##### Consumer avec groupe:
+#### Consumer avec groupe:
 
 ```bash
-kafka-console-consumer --topic my-topic --group my-group --bootstrap-server localhost:9092
+kafka-console-consumer --topic [TOPIC] --group [GROUP] --bootstrap-server localhost:9092
 ```
 
 #### Résultat:
+* Les messages du topic `[TOPIC]` sont reçus et affichés par un des consumers du groupe `[GROUP]`.
 
-Consumer simple: Les messages du topic my-topic sont reçus et affichés par le consumer.
-Consumer avec groupe: Les messages du topic my-topic sont reçus et affichés par un des consumers du groupe my-group.
+#### Vérfier la création du group
+
+```bash
+kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group [GROUP]
+```
+
+#### Résultat:
+```
+GROUP           TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+[GROUP]        test-topic      0          4               4               0               -               -               -
+```
 
 {:start="7"}
 
 7. Envoie de messages:
 
-Envoi d'un message:
+#### Envoi d'un message à un consummer:
 
 ```bash
-echo "Hello World!" | kafka-console-producer --topic my-topic --bootstrap-server localhost:9092
+echo "Hello World!" | kafka-console-producer --topic [TOPIC] --bootstrap-server localhost:9092
 ```
 
-Envoi de plusieurs messages:
+#### Envoi de plusieurs messages:
 
 ```bash
-cat messages.txt | kafka-console-producer --topic my-topic --bootstrap-server localhost:9092
+cat messages.txt | kafka-console-producer --topic [TOPIC] --bootstrap-server localhost:9092
 ```
 
 #### Résultat:
@@ -169,40 +176,121 @@ Envoi de plusieurs messages: Tous les messages du fichier sont envoyés et affic
 ##### Consumer simple:
 
 ```bash
-kafka-console-consumer --topic my-topic --from-beginning --bootstrap-server localhost:9092
-```
-
-##### Consumer avec groupe:
-
-```bash
-kafka-console-consumer --topic my-topic --group my-group --bootstrap-server localhost:9092
+kafka-console-consumer --topic [TOPIC] --from-beginning --bootstrap-server localhost:9092
 ```
 
 #### Résultat:
 
-Consumer simple: Les messages du topic my-topic sont reçus et affichés par le consumer.
-Consumer avec groupe: Les messages du topic my-topic sont reçus et affichés par un des consumers du groupe my-group.
+Consumer simple: Les messages du topic `[TOPIC]` sont reçus et affichés par le consumer.
+
+
+#### Consumer avec groupe:
+
+* Vérifier la description du group :
+```bash
+kafka-consumer-groups --bootstrap-server localhost:9092 --describe  --group [GROUP]
+```
+
+* Consommer les messages dans un group :
+```bash
+kafka-console-consumer --topic [TOPIC] --group [GROUP]  --bootstrap-server localhost:9092
+```
+#### Résultat:
+Les messages du topic [TOPIC] sont reçus et affichés par un des consumers du groupe `[GROUP]`.
+
+
+Note : Si cela ne fonctionne pas, essayer de réinitialiser les offsets du groupe `[GROUP]` pour le sujet `[TOPIC]`:
+
+```bash
+kafka-consumer-groups --bootstrap-server localhost:9092   --group [GROUP]  --reset-offsets   --to-earliest   --execute  --topic [TOPIC]
+```
+
+##### Resultat :
+```
+GROUP                          TOPIC                          PARTITION  NEW-OFFSET
+[GROUP]                       [TOPIC]                     0          0
+```
+
+Cette commande permet de réinitialiser des offsets du groupe "[GROUP]" pour le topic "[TOPIC]" en positionnant les offsets de consommation au tout début du sujet, c'est-à-dire à partir du premier message disponible.
+
+```bash
+kafka-console-consumer --topic test-topic --group [GROUP]  --bootstrap-server localhost:9092
+```
+
+#### Résultat:
+Les messages du topic [TOPIC] sont reçus et affichés par un des consumers du groupe `[GROUP]`.
 
 {:start="9"}
 
 9. Envoie de message de consumer à producer comme quoi ils ont bien reçu les messages:
 
-Consumer avec accusé de réception:
+#### Consumer avec accusé de réception:
+
+* Producer : Envoyer des messages avec des clés :
+
+Lorsque le producteur envoie des messages, il doit ajouter une clé unique à chaque message. Cette clé sera utilisée par le consumer pour envoyer un accusé de réception pour chaque message spécifique.
 
 ```bash
-kafka-console-consumer --topic my-topic --group my-group --bootstrap-server localhost:9092 --ack all
+kafka-console-producer --topic test-topic --broker-list localhost:9092  --property "parse.key=true" --property "key.separator=:"
+#> Resultat :
+>1:msg1
+>2:msg2
 ```
 
-Producer avec affichage des accusés de réception:
+* Consumer : Consommer les messages et envoyer des accusés de réception :
+
+Lorsque vous configurez le consumer Kafka pour envoyer automatiquement des accusés de réception (acks) en utilisant `enable.auto.commit=true, les accusés de réception sont envoyés au groupe de consumers pour le topic spécifique à partir duquel vous lisez les messages.
 
 ```bash
-kafka-console-producer --topic my-topic --bootstrap-server localhost:9092 --delivery-report-timeout 10000
+kafka-console-consumer.sh \
+  --topic test-topic1 \
+  --group group1 \
+  --bootstrap-server localhost:9092 \
+  --property "print.key=true" \
+  --property "key.separator=:" \
+  --property "enable.auto.commit=true" \
+  --property "auto.offset.reset=earliest" \
+  --property "key.deserializer=org.apache.kafka.common.serialization.StringDeserializer" \
+  --property "value.deserializer=org.apache.kafka.common.serialization.StringDeserializer"
+```
+Les accusés de réception seront envoyés automatiquement au groupe de consumers group1 pour le topic test-topic1.
+
+#### Resultat :
+```
+1:msg1
+2:msg2
 ```
 
-#### Résultat:
+* Vérifier les accusés de réception :
+#### 1. Vérification de l'Offset Commit
+```bash
+kafka-consumer-groups --bootstrap-server localhost:9092 --group group1 --describe
+```
+  
+Cette commande affichera les informations sur les offsets consommés pour le groupe group1 et le topic test-topic1.
 
-Consumer avec accusé de réception: Le consumer envoie un accusé de réception pour chaque message reçu.
-Producer avec affichage des accusés de réception: Le producer affiche les accusés de réception reçus.
+#### Resultat :
+Consumer group 'group1' has no active members.
+```
+GROUP           TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+group1          test-topic1     0          3               3               0               -               -               -
+```
+
+#### 2. Vérification des Accusés de Réception
+Vous pouvez également vérifier les accusés de réception directement dans le topic spécial `__consumer_offsets`. Ce topic est utilisé par Kafka pour stocker les informations sur les offsets commis par les groupes de consumers.
+
+Pour afficher les messages dans le `topic __consumer_offsets`, vous pouvez utiliser la commande suivante :
+
+```bash
+kafka-console-consumer.sh \
+  --topic __consumer_offsets \
+  --bootstrap-server localhost:9092 \
+  --from-beginning
+```
+
+Cette commande affichera les messages dans le topic `__consumer_offsets`, qui inclura les enregistrements pour les accusés de réception envoyés par votre groupe de consumers group1 pour le topic test-topic1.
+
+En vérifiant les accusés de réception dans ce topic, vous pouvez confirmer que les offsets sont bien commis par votre consumer Kafka. 
 
 {:start="10"}
 
@@ -211,7 +299,21 @@ Producer avec affichage des accusés de réception: Le producer affiche les accu
 Créer un groupe:
 
 ```bash
-kafka-consumer-groups --create my-group --bootstrap-server localhost:9092
+kafka-consumer-groups --create [GROUP] --bootstrap-server localhost:9092
+```
+
+Vérifier l'existance du group : 
+
+```bash
+kafka-consumer-groups   --bootstrap-server localhost:9092 --describe --group [GROUP]
+```
+
+##### Exemple de resultat 
+```bash
+
+GROUP           TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+[GROUP]        test-topic      0          0               6               6               -               -               -
+[GROUP]        [TOPIC]        0          3               3               0               -               -               -
 ```
 
 Lister les groupes:
@@ -223,14 +325,15 @@ kafka-consumer-groups --list --bootstrap-server localhost:9092
 Décrire un groupe:
 
 ```bash
-kafka-consumer-groups --describe my-group --bootstrap-server localhost:9092
+kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group [GROUP]
 ```
+
 
 #### Résultat:
 
-Créer un groupe: Le groupe my-group est créé.
+Créer un groupe: Le groupe `[GROUP]` est créé.
 Lister les groupes: La liste des groupes créés est affichée.
-Décrire un groupe: Les informations du groupe my-group sont affichées.
+Décrire un groupe: Les informations du groupe `[GROUP]` sont affichées.
 
 {:start="11"}
 
@@ -329,7 +432,7 @@ N'hésitez pas à adapter les commandes et les configurations à vos besoins sp�
 #!/bin/bash
 
 # Remplacer par vos valeurs
-TOPIC="my-topic"
+TOPIC="[TOPIC]"
 BROKER_LIST="localhost:9092"
 
 # Envoyer des messages en boucle
@@ -351,7 +454,7 @@ done
 #!/bin/bash
 
 # Remplacer par vos valeurs
-TOPIC="my-topic"
+TOPIC="[TOPIC]"
 BROKER_LIST="localhost:9092"
 MESSAGE="Votre message personnalisé"
 
