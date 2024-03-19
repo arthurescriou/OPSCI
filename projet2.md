@@ -63,7 +63,17 @@ networks:
 
 ## Architecture
 
+On souhaite créer un système permettant d'intégrer de grande quantité de données venant de différents flux avec beaucoup de résilience à l'erreur.
+
+Pour ça on utilise un message broker: Kafka.
+
+<img src="./img/projet2.png"/>
+
 ### Kafka
+
+On veut lancer un kafka avec docker (ou kubernetes).
+
+On utilise la même solution qu'au TME7.
 
 ```yml
 version: '3'
@@ -86,15 +96,47 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 ```
 
-_TODO Lancer kafka_
-
 ### Topics
+
+Notre kafka va nécéssiter plusieurs topics :
+
+- product : un topic dédié à la création de nouveau produit en masse, venant de différentes sources
+- event : un topic dédié à la création de nouveau produit en masse, venant de différentes sources
+- stock : un topic pour enregistrer et appliquer tous les mouvements de stocks de nos produits
+- error : pour récupérer les évènement ayant abouti à une erreur diverse
+
+_Attention tous ces topics devront être précisés dans les configurations des consumers et producers. Si le noms n'est pas le même des deux cotées la communication ne marchera pas._
 
 ### Consumer et Producer
 
-_TODO_
+Pour utiliser ces topics plusieurs élèments sont à votre disposition sous la forme d'image docker ou de dépôt github (https://github.com/orgs/opsci-su/repositories).
 
-- product
-- event
-- stock
-- status
+Il s'agit des consumers et producers pour les différents éléments.
+
+#### product-producer
+
+https://hub.docker.com/repository/docker/arthurescriou/product-producer/
+
+#### product-consumer
+
+https://hub.docker.com/repository/docker/arthurescriou/product-consumer/
+
+#### event-producer
+
+https://hub.docker.com/repository/docker/arthurescriou/event-producer/
+
+#### event-consumer
+
+https://hub.docker.com/repository/docker/arthurescriou/event-consumer/
+
+#### stock-producer
+
+https://hub.docker.com/repository/docker/arthurescriou/stock-producer/
+
+#### stock-consumer
+
+https://hub.docker.com/repository/docker/arthurescriou/stock-consumer/
+
+#### artificial-intelligence
+
+_TBA_
