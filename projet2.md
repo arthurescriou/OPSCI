@@ -109,33 +109,37 @@ _Attention tous ces topics devront être précisés dans les configurations des 
 
 ### Consumer et Producer
 
-Pour utiliser ces topics plusieurs élèments sont à votre disposition sous la forme d'image docker ou de dépôt github (https://github.com/orgs/opsci-su/repositories).
+Pour utiliser ces topics plusieurs élèments sont à votre disposition sous la forme d'image docker ou de dépôt github (<a href="https://github.com/orgs/opsci-su/repositories">https://github.com/orgs/opsci-su/repositories</a>).
 
 Il s'agit des consumers et producers pour les différents éléments.
 
+Pensez bien à lire les readme des différents élèments pour bien configurer leurs variables d'environments.
+
 #### product-producer
 
-https://hub.docker.com/repository/docker/arthurescriou/product-producer/
+<a href="https://hub.docker.com/repository/docker/arthurescriou/product-producer/" > https://hub.docker.com/repository/docker/arthurescriou/product-producer/ </a>
+
+Pour lancer la création de `product` insérez le <a href="./assets/products.csv" >fichier</a> dans votre container et spécifiez sa position dans la configuration.
 
 #### product-consumer
 
-https://hub.docker.com/repository/docker/arthurescriou/product-consumer/
+<a href="https://hub.docker.com/repository/docker/arthurescriou/product-consumer/" > https://hub.docker.com/repository/docker/arthurescriou/product-consumer/ </a>
 
 #### event-producer
 
-https://hub.docker.com/repository/docker/arthurescriou/event-producer/
+<a href="https://hub.docker.com/repository/docker/arthurescriou/event-producer/" > https://hub.docker.com/repository/docker/arthurescriou/event-producer/ </a>
 
 #### event-consumer
 
-https://hub.docker.com/repository/docker/arthurescriou/event-consumer/
+<a href="https://hub.docker.com/repository/docker/arthurescriou/event-consumer/" > https://hub.docker.com/repository/docker/arthurescriou/event-consumer/ </a>
 
 #### stock-producer
 
-https://hub.docker.com/repository/docker/arthurescriou/stock-producer/
+<a href="https://hub.docker.com/repository/docker/arthurescriou/stock-producer/" > https://hub.docker.com/repository/docker/arthurescriou/stock-producer/ </a>
 
 #### stock-consumer
 
-https://hub.docker.com/repository/docker/arthurescriou/stock-consumer/
+<a href="https://hub.docker.com/repository/docker/arthurescriou/stock-consumer/" > https://hub.docker.com/repository/docker/arthurescriou/stock-consumer/ </a>
 
 #### artificial-intelligence
 
