@@ -79,21 +79,41 @@ On utilise la même solution qu'au TME7.
 version: '3'
 services:
   zookeeper:
-    image: wurstmeister/zookeeper
+    image: wurstmeister/zookeeper:latest
+    container_name: zookeeper
     ports:
-      - '2181:2181'
+      - "2181:2181"
+    expose:
+      - "2181"
+
   kafka:
-    image: wurstmeister/kafka
+    image: wurstmeister/kafka:2.11-1.1.1
+    container_name: kafka
     ports:
-      - '9092:9092'
+      - "9092:9092"
+      - "9093:9093"
     environment:
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://localhost:9093,OUTSIDE://kafka:9092,
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKAJS_NO_PARTITIONER_WARNING: "1" 
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_NO_LISTENER_AUTHENTICATION_PLAINTEXT: "true"
+      KAFKA_NO_LISTENER_AUTHENTICATION_SSL: "true"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LOG_RETENTION_HOURS: 168
+      KAFKA_LOG_RETENTION_BYTES: 1073741824
+      KAFKA_LOG_DIRS: /kafka/logs
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - zookeeper
+
 ```
 
 ### Topics
