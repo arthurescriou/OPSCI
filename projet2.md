@@ -82,29 +82,29 @@ services:
     image: wurstmeister/zookeeper:latest
     container_name: zookeeper
     ports:
-      - "2181:2181"
+      - '2181:2181'
     expose:
-      - "2181"
+      - '2181'
 
   kafka:
     image: wurstmeister/kafka:2.11-1.1.1
     container_name: kafka
     ports:
-      - "9092:9092"
-      - "9093:9093"
+      - '9092:9092'
+      - '9093:9093'
     environment:
       KAFKA_ADVERTISED_LISTENERS: INSIDE://localhost:9093,OUTSIDE://kafka:9092,
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
-      KAFKA_DELETE_TOPIC_ENABLE: "true"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_DELETE_TOPIC_ENABLE: 'true'
       KAFKA_ADVERTISED_PORT: 9092
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKAJS_NO_PARTITIONER_WARNING: "1" 
+      KAFKAJS_NO_PARTITIONER_WARNING: '1'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
-      KAFKA_NO_LISTENER_AUTHENTICATION_PLAINTEXT: "true"
-      KAFKA_NO_LISTENER_AUTHENTICATION_SSL: "true"
+      KAFKA_NO_LISTENER_AUTHENTICATION_PLAINTEXT: 'true'
+      KAFKA_NO_LISTENER_AUTHENTICATION_SSL: 'true'
       KAFKA_BROKER_ID: 1
       KAFKA_LOG_RETENTION_HOURS: 168
       KAFKA_LOG_RETENTION_BYTES: 1073741824
@@ -113,7 +113,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - zookeeper
-
 ```
 
 ### Topics
@@ -149,6 +148,8 @@ Pour lancer la création de `product` insérez le <a href="./assets/products.csv
 
 <a href="https://hub.docker.com/repository/docker/arthurescriou/event-producer/" > https://hub.docker.com/repository/docker/arthurescriou/event-producer/ </a>
 
+Pour lancer la création de `event` insérez le <a href="./assets/events.csv" >fichier</a> dans votre container et spécifiez sa position dans la configuration.
+
 #### event-consumer
 
 <a href="https://hub.docker.com/repository/docker/arthurescriou/event-consumer/" > https://hub.docker.com/repository/docker/arthurescriou/event-consumer/ </a>
@@ -156,6 +157,8 @@ Pour lancer la création de `product` insérez le <a href="./assets/products.csv
 #### stock-producer
 
 <a href="https://hub.docker.com/repository/docker/arthurescriou/stock-producer/" > https://hub.docker.com/repository/docker/arthurescriou/stock-producer/ </a>
+
+Pour lancer l'update de `stocks` insérez le <a href="./assets/stocks.csv" >fichier</a> dans votre container et spécifiez sa position dans la configuration.
 
 #### stock-consumer
 
