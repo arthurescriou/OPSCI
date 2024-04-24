@@ -43,18 +43,18 @@ Vous pouvez utiliser ces <a href="https://github.com/arthurescriou/mqtt-js-test"
 _NB: On utilise ici des websocket en protocole car on veut communiquer avec un navigateur (qui ne gère pas nativement le protocole MQTT qu'on va encapsuler dans une websocket).
 Pour ça on devra utiliser des URL `ws://url` et non `mqtt://url`._
 
-## Connecteur MQTT to Kafka
+### Connecteur MQTT to Kafka
 
 Il nous faut un élément qui fait le lien entre le broker MQTT et le broker Kafka.
 
 Pour ça vous devez déployer un conteneur pouvant communiquer avec les deux :
 _TBA_
 
-## Client web
+### Client web
 
 Vous pouvez tester de modifier un stock depuis un <a href="https://mqtt-test-front.onrender.com/" >frontend</a> (veillez à configurer correctement dans le formulaire).
 
-#### Rendu attendu :
+## Rendu attendu :
 
 - Une vidéo de démonstration type **screencast** , qui parcours les différentes fonctionnalitées de l'application déployée. (Montrez toute la chaine de modification de stock).
 
