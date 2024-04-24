@@ -24,7 +24,7 @@ Pour ça on va utiliser <a href="https://mosquitto.org/">Mosquitto</a>, une impl
 
 On peut le lancer facilement avec <a href="https://hub.docker.com/_/eclipse-mosquitto" >l'image officielle </a>.
 
-Il suffit de créer un fichier `mosquitto.conf` et de le lier avec un volume.
+Il suffit de créer un fichier `mosquitto.conf` et de le lier avec un volume. (voir la doc officielle pour l'emplacement du fichier dans le conteneur)
 
 ```
 #mosquitto.conf
@@ -50,6 +50,8 @@ Il nous faut un élément qui fait le lien entre le broker MQTT et le broker Kaf
 Pour ça vous devez déployer un conteneur pouvant communiquer avec les deux :
 
 <a href="https://hub.docker.com/repository/docker/arthurescriou/mqtt-kafka-connector/general"> https://hub.docker.com/repository/docker/arthurescriou/mqtt-kafka-connector/general </a>
+
+Variable d'environment par défaut :
 
 ```sh
 BROKER_1='localhost:9092'
