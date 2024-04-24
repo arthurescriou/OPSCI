@@ -33,8 +33,12 @@ persistence_location /mosquitto/data/
 log_dest file /mosquitto/log/mosquitto.log
 allow_anonymous true
 listener 1883
+protocol websockets
 ```
 
 Une fois le conteneur lancé on peut se connecter dessus avec client `mqtt` sur le port 1883.
 
 Vous pouvez utiliser ces <a href="https://github.com/arthurescriou/mqtt-js-test">scripts</a> pour tester votre broker mosquitto.
+
+_NB: On utilise ici des websocket en protocole car on veut communiquer avec un navigateur (qui ne gère pas nativement le protocole MQTT qu'on va encapsuler dans une websocket).
+Pour ça on devra utiliser des URL `ws://url` et non `mqtt://url`._
