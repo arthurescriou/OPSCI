@@ -56,7 +56,7 @@ Vous pouvez tester de modifier un stock depuis un <a href="https://mqtt-test-fro
 
 ## Rendu attendu :
 
-- Une vidéo de démonstration type **screencast** , qui parcours les différentes fonctionnalitées de l'application déployée. (Montrez toute la chaine de modification de stock).
+- Une vidéo de démonstration type **screencast** , qui parcours les différentes fonctionnalitées de l'application déployée. (Montrez toute la chaine de modification de stock: front -> MQTT -> kafka -> strapi).
 
 - Un dépôt git accessible en ligne comportant tous les fichiers que vous avez écrit (Dockerfile, script shell, etc).
 
