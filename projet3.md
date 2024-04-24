@@ -48,7 +48,18 @@ Pour ça on devra utiliser des URL `ws://url` et non `mqtt://url`._
 Il nous faut un élément qui fait le lien entre le broker MQTT et le broker Kafka.
 
 Pour ça vous devez déployer un conteneur pouvant communiquer avec les deux :
-_TBA_
+
+<a href="https://hub.docker.com/repository/docker/arthurescriou/mqtt-kafka-connector/general"> https://hub.docker.com/repository/docker/arthurescriou/mqtt-kafka-connector/general </a>
+
+```sh
+BROKER_1='localhost:9092'
+BROKER_2='localhost:9092'
+BROKER_3='localhost:9092'
+KAFKA_TOPIC='stock'
+
+MQTT_TOPIC='topic'
+MQTT_ADDRESS='ws://localhost:1883'
+```
 
 ### Client web
 
