@@ -60,7 +60,7 @@ BROKER_3='localhost:9092'
 KAFKA_TOPIC='stock'
 
 MQTT_TOPIC='topic'
-MQTT_ADDRESS='ws://localhost:1883'
+MQTT_ENDPOINT='ws://localhost:1883'
 ```
 
 ### Client web
