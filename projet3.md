@@ -77,4 +77,4 @@ Vous pouvez tester de modifier un stock depuis un <a href="https://mqtt-test-fro
 
 Ce projet ce fera en binôme. Veillez bien à spécifier vos numéros étudiants dans le `readme.md`.
 
-La date de rendu limite est le **12 mai 2024 à 23h59**.
+La date de rendu limite est le **13 avril 2025 à 23h59**.
