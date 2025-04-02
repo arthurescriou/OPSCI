@@ -1,4 +1,4 @@
-# Projet OPSCI: Internet des objets
+# TME 10 - 11 OPSCI: Internet des objets
 
 Ce projet à pour objectif d'ajouter la gestion d'objets connectés dans l'architecture créé dans les deux premiers projets.
 
