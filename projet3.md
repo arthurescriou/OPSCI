@@ -1,10 +1,10 @@
 # TME 10 - 11 OPSCI: Internet des objets
 
-Ces tmes à pour objectif d'ajouter la gestion d'objets connectés dans l'architecture créé dans le premier projet.
+Ces TMEs à pour objectif d'ajouter la gestion d'objets connectés dans l'architecture créé dans le premier projet.
 
 ## Prérequis
 
-Pour ces tme on a besoin de l'architecture évènementiel car on va créer des producteur "IoT" pour le kafka.
+Pour ces TMEs on a besoin de l'architecture évènementiel car on va créer des producteur "IoT" pour le kafka.
 
 Il faut donc un kafka fonctionnel avec un strapi pour consommer les données.
 
