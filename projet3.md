@@ -50,6 +50,7 @@ Il nous faut un élément qui fait le lien entre le broker MQTT et le broker Kaf
 Pour ça vous devez déployer un conteneur pouvant communiquer avec les deux :
 
 <a href="https://hub.docker.com/repository/docker/arthurescriou/mqtt-kafka-connector/general"> https://hub.docker.com/repository/docker/arthurescriou/mqtt-kafka-connector/general </a>
+
 Ou `docker pull arthurescriou/mqtt-kafka-connector:1.0.0`
 
 Variable d'environment par défaut :
